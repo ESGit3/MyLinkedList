@@ -2,11 +2,22 @@ public class MyLinkedList {
     private int size;
     private Node start, end;
     public MyLinkedList() {
-        start = new Node();
+        size = 0;
+        start = null;
         tail = null;
     }
-    public int size();
-    public boolean add(String value);
+    public int size() {
+        return size;
+    };
+
+    public boolean add(String value) {
+        Node temp = new Node(value);
+        temp.setNext(start.getNext());
+        start.setNext(temp);
+        if(size == 1) {
+            tail = temp;
+        }
+    };
     public void add(int index, String value);
     public String get(int index);
     public String set(int index, String value);
