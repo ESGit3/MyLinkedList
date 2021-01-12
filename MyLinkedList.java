@@ -4,7 +4,7 @@ public class MyLinkedList {
     public MyLinkedList() {
         size = 0;
         start = null;
-        tail = null;
+        end = null;
     }
     public int size() {
         return size;
@@ -12,15 +12,63 @@ public class MyLinkedList {
 
     public boolean add(String value) {
         Node temp = new Node(value);
-        temp.setNext(start.getNext());
-        start.setNext(temp);
-        if(size == 1) {
-            tail = temp;
+        if (size == 0) {
+            start = temp;
+            end = temp;
+            size++;
+        } else {
+            end.setNext(temp);
+            Node initialEnd = end;
+            end = temp;
+            end.setNext(null);
+            end.setPrev(initialEnd);
+            size++;
+        }
+        return true;
+    };
+
+    public void add(int index, String value) {
+        Node temp = new Node(value);
+        if (size == 0) {
+            start = temp;
+            end = temp;
+            size++;
+        } else if (index == 0) {
+            start.setPrev(temp);
+            Node initialStart = start;
+            start = temp;
+            start.setNext(initialStart);
+        } else if (index == size) {
+            this.add(value);
+        } else {
+            Node currNode = start;
+            for (int i = 0; i < index; i++) {
+                currNode = currNode.getNext();
+            }
+
+            Node prevNode = start;
+            for (int i = 0; i < index - 1; i++) {
+                prevNode = prevNode.getNext();
+            }
+
+            currNode.setPrev(temp);
+            temp.setNext(currNode);
+            temp.setPrev(prevNode);
+            prevNode.setNext(temp);
         }
     };
-    public void add(int index, String value);
-    public String get(int index);
-    public String set(int index, String value);
+
+    public String get(int index) {
+        Node currNode = this.start;
+        for (int i = 0; i < index; i++) {
+            currNode = currNode.getNext();
+        }
+        return currNode.getData();
+    };
+
+    public String set(int index, String value) {
+
+    };
     public String toString();
     //Any helper method that returns a Node object MUST BE PRIVATE!
 }
