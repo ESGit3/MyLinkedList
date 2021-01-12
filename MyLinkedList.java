@@ -67,8 +67,13 @@ public class MyLinkedList {
     };
 
     public String set(int index, String value) {
-
+        Node currNode = this.start;
+        for (int i = 0; i < index; i++) {
+            currNode = currNode.getNext();
+        }
+        currNode.setData(value);
     };
+
     public String toString();
     //Any helper method that returns a Node object MUST BE PRIVATE!
 }
