@@ -27,17 +27,21 @@ public class MyLinkedList {
         return true;
     };
 
-    public void add(int index, String value) {
+    public void add(int index, String value) throws IndexOutOfBoundsException {
+        if (index < 0 || index > this.size) {
+            throw new IndexOutOfBoundsException(index + " is out of bounds");
+        }
         Node temp = new Node(value);
         if (size == 0) {
             start = temp;
             end = temp;
             size++;
         } else if (index == 0) {
-            start.setPrev(temp);
             Node initialStart = start;
+            start.setPrev(temp);
             start = temp;
-            start.setNext(initialStart);
+            temp = initialStart;
+            start.setPrev(null);
         } else if (index == size) {
             this.add(value);
         } else {
@@ -46,10 +50,7 @@ public class MyLinkedList {
                 currNode = currNode.getNext();
             }
 
-            Node prevNode = start;
-            for (int i = 0; i < index - 1; i++) {
-                prevNode = prevNode.getNext();
-            }
+            Node prevNode = currNode.getPrev();
 
             currNode.setPrev(temp);
             temp.setNext(currNode);
@@ -75,6 +76,7 @@ public class MyLinkedList {
             currNode = currNode.getNext();
         }
         currNode.setData(value);
+        return value;
     };
 
     public String toString() {
@@ -83,9 +85,9 @@ public class MyLinkedList {
         }
         String temp = "[";
         Node currNode = this.start;
-        temp += currNode.getData() + ", ";
         for (int i = 0; i < this.size; i++) {
-            temp += currNode.getNext().getData() + ", ";
+            temp += currNode.getData() + ", ";
+            currNode = currNode.getNext();
         }
         temp = temp.substring(0, temp.length() - 2) + "]";
         return temp;
@@ -106,7 +108,7 @@ public class MyLinkedList {
         return temp;
     }
 
-    public String remove(int index) throws IndexOutOfBoundsException() {
+    public String remove(int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException(index + "is out of bounds");
         }
