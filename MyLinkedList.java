@@ -40,10 +40,15 @@ public class MyLinkedList {
             Node initialStart = start;
             start.setPrev(temp);
             start = temp;
-            temp = initialStart;
-            start.setPrev(null);
+            start.setNext(initialStart);
+            size++;
         } else if (index == size) {
-            this.add(value);
+            end.setNext(temp);
+            Node initialEnd = end;
+            end = temp;
+            end.setNext(null);
+            end.setPrev(initialEnd);
+            size++;
         } else {
             Node currNode = start;
             for (int i = 0; i < index; i++) {
@@ -56,6 +61,7 @@ public class MyLinkedList {
             temp.setNext(currNode);
             temp.setPrev(prevNode);
             prevNode.setNext(temp);
+            size++;
         }
     };
 
@@ -100,9 +106,9 @@ public class MyLinkedList {
         }
         String temp = "[";
         Node currNode = this.end;
-        temp += currNode.getData() + ", ";
         for (int i = 0; i < this.size; i++) {
-            temp += currNode.getPrev().getData() + ", ";
+            temp += currNode.getData() + ", ";
+            currNode = currNode.getPrev();
         }
         temp = temp.substring(0, temp.length() - 2) + "]";
         return temp;

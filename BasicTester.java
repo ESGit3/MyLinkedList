@@ -6,7 +6,6 @@ public class BasicTester{
         for(int i = 0; i < 10; i++){
             words.add(i+"");
         }
-        System.out.println(words.toString());
         //insert 0x - 9x before each value 0-9
         for(int i = 0; i < 10; i++){
             words.add(2*i,i+"x");
@@ -29,8 +28,7 @@ public class BasicTester{
 
         }
 
-
-        System.out.println("Your result:\n"+words+" "+words.size());
+        System.out.println("Your result:\n"+words.toString()+" "+words.size());
         System.out.println("expected:\n[head, 0x, 0, 1x, 1, 2x, 2, 3x, 3, 4x, 4, 5x, 5, 6x, 6, 7x, 7, 8x, 8, 9x, 9, tail] 22");
         System.out.println("\nYour result:\n"+words.toStringReversed()+" "+words.size());
         System.out.println("expected:\n[tail, 9, 9x, 8, 8x, 7, 7x, 6, 6x, 5, 5x, 4, 4x, 3, 3x, 2, 2x, 1, 1x, 0, 0x, head] 22");
