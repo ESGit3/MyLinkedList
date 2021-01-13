@@ -58,7 +58,10 @@ public class MyLinkedList {
         }
     };
 
-    public String get(int index) {
+    public String get(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException(index + "is out of bounds");
+        }
         Node currNode = this.start;
         for (int i = 0; i < index; i++) {
             currNode = currNode.getNext();
@@ -101,5 +104,49 @@ public class MyLinkedList {
         }
         temp = temp.substring(0, temp.length() - 2) + "]";
         return temp;
+    }
+
+    public String remove(int index) throws IndexOutOfBoundsException() {
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException(index + "is out of bounds");
+        }
+
+        String removedValue = this.get(index);
+
+        if (size == 1) {
+            start = null;
+            end = null;
+            size = 0;
+            return removedValue;
+        }
+        if (index == 0) {
+            start = start.getNext();
+            start.getPrev().setNext(null);
+            start.setPrev(null);
+            size -= 1;
+            return removedValue;
+        }
+        if (index == size - 1) {
+            end = end.getPrev();
+            end.getNext().setPrev(null);
+            end.setNext(null);
+            size -= 1;
+            return removedValue;
+        }
+
+        Node currNode = this.start;
+        for (int i = 0; i < index; i++) {
+            currNode = currNode.getNext();
+        }
+
+        Node prevNode = currNode.getPrev();
+        Node nextNode = currNode.getNext();
+
+        currNode.setPrev(null);
+        currNode.setNext(null);
+        prevNode.setNext(nextNode);
+        nextNode.setPrev(prevNode);
+        size -= 1;
+        return removedValue;
     }
 }
