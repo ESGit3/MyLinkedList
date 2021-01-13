@@ -88,4 +88,18 @@ public class MyLinkedList {
         return temp;
     };
     //Any helper method that returns a Node object MUST BE PRIVATE!
+
+    public String toStringReversed() {
+        if (this.size == 0) {
+            return "[]";
+        }
+        String temp = "[";
+        Node currNode = this.end;
+        temp += currNode.getData() + ", ";
+        for (int i = 0; i < this.size; i++) {
+            temp += currNode.getPrev().getData() + ", ";
+        }
+        temp = temp.substring(0, temp.length() - 2) + "]";
+        return temp;
+    }
 }
