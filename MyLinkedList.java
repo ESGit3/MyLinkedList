@@ -157,4 +157,19 @@ public class MyLinkedList {
         size -= 1;
         return removedValue;
     }
+
+    public void extend(MyLinkedList other) {
+        if (size == 0) {
+            start = other.start;
+            end = other.end;
+        } else {
+            end.setNext(other.start);
+            other.start.setPrev(end);
+            end = other.end;
+            size += other.size;
+        }
+        other.start = null;
+        other.end = null;
+        other.size = 0;
+    }
 }
